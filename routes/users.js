@@ -37,7 +37,20 @@ router.post('/' , (req, res, next) => {
   }
 
   if (!username || username.trim().length <= 6) {
-     const err = new Error('User Name must not be blank, must be > 6  characters, start with a letter and must not contain punctuation');
+     const err = new Error('Username must not be blank and must be at least 6 characters');
+     err.status = 400;
+
+     return next(err);
+   }
+
+   let regExp = /^[[a-z]*[a-z0-9]+/i;
+
+   console.log(regExp.test(username));
+
+   if (!regExp.test(username)) {
+
+     const err = new Error('Username start with a letter and must not contain punctuation');
+
      err.status = 400;
 
      return next(err);
