@@ -25,7 +25,7 @@ $('#submit').click(function (event){
       window.location.href = '/';
     })
     .fail((err) => {
-      console.log(err);
+      console.log(err.responseText);
     });
   });
 
