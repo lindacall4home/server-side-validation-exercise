@@ -43,13 +43,11 @@ router.post('/' , (req, res, next) => {
      return next(err);
    }
 
-   let regExp = /^[[a-z]*[a-z0-9]+/i;
-
-   console.log(regExp.test(username));
+   let regExp = /^[a-zA-Z][a-zA-Z0-9]*$/;
 
    if (!regExp.test(username)) {
 
-     const err = new Error('Username start with a letter and must not contain punctuation');
+     const err = new Error('Username must start with a letter and must not contain punctuation');
 
      err.status = 400;
 
@@ -62,6 +60,17 @@ router.post('/' , (req, res, next) => {
 
      return next(err);
    }
+
+   let regExEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+   if(!regExEmail.test(email)){
+     const err = new Error('Email must be a valid');
+     err.status = 400;
+
+     return next(err);
+
+   }
+
 
   if (!phone || phone.trim().length != 10) {
     const err = new Error('Phone must not be blank and must be 10 characters');
